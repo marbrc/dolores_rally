@@ -69,7 +69,14 @@ Estas no tienen archivo de prueba propio, el almacén en memoria se usa dentro d
 <img width="670" height="57" alt="image" src="https://github.com/user-attachments/assets/bbcf641d-d651-4c09-89fb-b331d3ab6a53" />
 
 
-
+## CAPTURAS
+<img width="739" height="1600" alt="image" src="https://github.com/user-attachments/assets/7596323d-de07-4b9c-a19c-d8d0635f53a2" />
+<img width="739" height="1600" alt="image" src="https://github.com/user-attachments/assets/e2938dc1-e501-4ef9-8e4e-64f17f035630" />
+<img width="739" height="1600" alt="image" src="https://github.com/user-attachments/assets/01b03ee0-3d87-4f61-8ad2-2cb4cf48ef34" />
+<img width="739" height="1600" alt="image" src="https://github.com/user-attachments/assets/0fe0955d-8746-4061-b238-e5684d5a1885" />
+<img width="739" height="1600" alt="image" src="https://github.com/user-attachments/assets/b6220825-9b3e-4eac-a267-4d053d779a7b" />
+<img width="739" height="1600" alt="image" src="https://github.com/user-attachments/assets/cd8fc2d8-db90-4e31-8e1e-e3a9e26397f4" />
+<img width="739" height="1600" alt="image" src="https://github.com/user-attachments/assets/0da25fc7-205a-4dcb-bd72-2d8cc32334d3" />
 
 
 
