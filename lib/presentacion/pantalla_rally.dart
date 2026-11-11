@@ -60,6 +60,22 @@ class _PantallaRallyState extends State<PantallaRally> {
               ),
             ),
           ),
+          SafeArea(
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 4),
+                child: IconButton.filledTonal(
+                  onPressed: () => Navigator.maybePop(context),
+                  icon: const Icon(Icons.arrow_back_rounded),
+                  style: IconButton.styleFrom(
+                    backgroundColor: Colors.white.withOpacity(0.85),
+                    foregroundColor: const Color(0xFFC2185B),
+                  ),
+                ),
+              ),
+            ),
+          ),
           SafeArea(child: Align(alignment: Alignment.bottomCenter, child: _panelInferior())),
         ]),
       ),
@@ -75,15 +91,19 @@ class _PantallaRallyState extends State<PantallaRally> {
                 : '${nombreCardinal(vm.rumbo!)} ${vm.rumbo!.round()}°\n'
                     '🏆 ${vm.partida.capturados.length}/${vm.partida.todas.length} · '
                     '⭐ ${vm.partida.puntos}\n'
-                    '${vm.temperatura?.texto ?? '🎉 ¡Los atrapaste a todos!'}');
+                    '${vm.temperatura?.texto ?? ' ¡Los atrapaste a todos!'}');
     return Container(
-      constraints: const BoxConstraints(maxWidth: 220),
-      padding: const EdgeInsets.all(10),
+      constraints: const BoxConstraints(maxWidth: 190),
+      padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: vm.error != null ? Colors.red.shade800 : Colors.black54,
-        borderRadius: BorderRadius.circular(14),
+        color: vm.error != null
+            ? Colors.red.shade700
+            : const Color(0xFF8A1459).withOpacity(0.85),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: const Color(0xFFFFC1DC), width: 2),
       ),
-      child: Text(texto, style: const TextStyle(color: Colors.white)),
+      child: Text(texto,
+          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600, height: 1.3)),
     );
   }
 
@@ -103,18 +123,33 @@ class _PantallaRallyState extends State<PantallaRally> {
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Colors.white.withOpacity(0.85),
-                border: Border.all(color: alAlcance ? Colors.greenAccent : Colors.white, width: 4),
+                color: Colors.white.withOpacity(0.9),
+                border: Border.all(
+                  color: alAlcance ? const Color(0xFF69F0AE) : const Color(0xFFFF80AB),
+                  width: 5,
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: (alAlcance ? const Color(0xFF69F0AE) : const Color(0xFFE91E8C))
+                        .withOpacity(0.5),
+                    blurRadius: 16,
+                    spreadRadius: 2,
+                  ),
+                ],
               ),
               child: Text(v.aparicion.personaje.emoji, style: const TextStyle(fontSize: 44)),
             ),
             Container(
-              margin: const EdgeInsets.only(top: 4),
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-              decoration: BoxDecoration(color: Colors.black54, borderRadius: BorderRadius.circular(10)),
+              margin: const EdgeInsets.only(top: 6),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+              decoration: BoxDecoration(
+                color: const Color(0xFFE91E8C),
+                borderRadius: BorderRadius.circular(14),
+              ),
               child: Text(
-                alAlcance ? '¡Tócame!' : formatearDistancia(v.distancia),
-                style: const TextStyle(color: Colors.white, fontSize: 12),
+                alAlcance ? '¡Tócame! ' : formatearDistancia(v.distancia),
+                style: const TextStyle(
+                    color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold),
               ),
             ),
           ]),
@@ -143,11 +178,11 @@ class _PantallaRallyState extends State<PantallaRally> {
       final r = await vm.capturar(p.id, opcion);
       switch (r) {
         case Capturado(:final puntos):
-          _aviso('🎉 ¡Atrapaste a ${p.nombre}! +$puntos puntos\n${p.bio}');
+          _aviso('¡Atrapaste a ${p.nombre}! +$puntos puntos\n${p.bio}');
         case Fallo(:final intentosRestantes):
-          _aviso('❌ Respuesta incorrecta. Te queda $intentosRestantes intento.');
+          _aviso('Respuesta incorrecta. Te queda $intentosRestantes intento.');
         case SeEscapo():
-          _aviso('💨 ¡${p.nombre} se escapó! Búscalo en otro lugar.');
+          _aviso(' ¡${p.nombre} se escapó! Búscalo en otro lugar.');
       }
     } catch (e) {
       _aviso(mensajeSeguro(e));
@@ -157,7 +192,13 @@ class _PantallaRallyState extends State<PantallaRally> {
   void _aviso(String texto) {
     if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(texto), duration: const Duration(seconds: 4)),
+      SnackBar(
+        content: Text(texto),
+        backgroundColor: const Color(0xFFC2185B),
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+        duration: const Duration(seconds: 4),
+      ),
     );
   }
 }
@@ -170,13 +211,17 @@ class _DialogoPregunta extends StatelessWidget {
   Widget build(BuildContext context) {
     final q = personaje.pregunta;
     return AlertDialog(
-      title: Text('${personaje.emoji} ${personaje.nombre}'),
+      backgroundColor: const Color(0xFFFFF0F6),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(26)),
+      title: Text('${personaje.emoji} ${personaje.nombre}',
+          style: const TextStyle(color: Color(0xFF8A1459), fontWeight: FontWeight.bold)),
       content: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Text(q.texto, style: const TextStyle(fontWeight: FontWeight.bold)),
+        Text(q.texto,
+            style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF6A1B4D))),
         const SizedBox(height: 12),
         for (var i = 0; i < q.opciones.length; i++)
           Padding(
-            padding: const EdgeInsets.only(bottom: 6),
+            padding: const EdgeInsets.only(bottom: 8),
             child: OutlinedButton(
               onPressed: () => Navigator.pop(context, i),
               child: Text(q.opciones[i], textAlign: TextAlign.center),

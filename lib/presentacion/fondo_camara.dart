@@ -2,7 +2,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
 /// Muestra la cámara trasera. Si no hay cámara o el permiso se niega,
-/// usa un degradado: la app nunca se rompe.
+/// usa un degradado rosita: la app nunca se rompe.
 class FondoCamara extends StatefulWidget {
   const FondoCamara({super.key});
 
@@ -62,7 +62,7 @@ class _FondoCamaraState extends State<FondoCamara> {
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: [Color(0xFF1B2A49), Color(0xFF4A6FA5), Color(0xFFD9A066)],
+          colors: [Color(0xFFFFB6D9), Color(0xFFFF8FC4), Color(0xFFFFD6A5)],
         ),
       ),
       child: _fallo
@@ -70,8 +70,8 @@ class _FondoCamaraState extends State<FondoCamara> {
               alignment: Alignment.bottomCenter,
               child: Padding(
                 padding: EdgeInsets.all(8),
-                child: Text('Sin cámara: usando fondo simulado',
-                    style: TextStyle(color: Colors.white70, fontSize: 12)),
+                child: Text('Sin cámara: usando fondo simulado ',
+                    style: TextStyle(color: Colors.white, fontSize: 12)),
               ),
             )
           : null,

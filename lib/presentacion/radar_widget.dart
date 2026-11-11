@@ -23,12 +23,13 @@ class _RadarPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final centro = size.center(Offset.zero);
     final radio = size.width / 2;
-    canvas.drawCircle(centro, radio, Paint()..color = Colors.black54);
+    canvas.drawCircle(centro, radio, Paint()..color = const Color(0xCC8A1459));
     final linea = Paint()
-      ..color = Colors.greenAccent.withOpacity(0.6)
+      ..color = const Color(0xFFFFC1DC).withOpacity(0.8)
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 1;
-    canvas.drawCircle(centro, radio, linea);
+      ..strokeWidth = 1.2;
+    canvas.drawCircle(centro, radio, linea..strokeWidth = 2.5);
+    linea.strokeWidth = 1;
     canvas.drawCircle(centro, radio / 2, linea);
     canvas.drawLine(Offset(centro.dx, 0), Offset(centro.dx, size.height), linea);
     canvas.drawLine(Offset(0, centro.dy), Offset(size.width, centro.dy), linea);
@@ -42,11 +43,9 @@ class _RadarPainter extends CustomPainter {
     canvas.drawPath(yo, Paint()..color = Colors.white);
 
     for (final (x, y) in puntos) {
-      canvas.drawCircle(
-        Offset(centro.dx + x * (radio - 6), centro.dy + y * (radio - 6)),
-        5,
-        Paint()..color = Colors.orangeAccent,
-      );
+      final c = Offset(centro.dx + x * (radio - 6), centro.dy + y * (radio - 6));
+      canvas.drawCircle(c, 7, Paint()..color = Colors.white.withOpacity(0.5));
+      canvas.drawCircle(c, 5, Paint()..color = const Color(0xFFFF80AB));
     }
   }
 
